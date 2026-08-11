@@ -22,13 +22,13 @@ class Order(models.Model):
     class Meta:
         ordering = ["-created_at"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.created_at)
 
 
 class Ticket(models.Model):
     movie_session = models.ForeignKey(
-        MovieSession,
+        "MovieSession",
         on_delete=models.CASCADE,
     )
     order = models.ForeignKey(
@@ -53,7 +53,7 @@ class Ticket(models.Model):
             f"(row: {self.row}, seat: {self.seat})"
         )
 
-    def clean(self):
+    def clean(self) -> None:
         if self.row < 1 or self.row > self.movie_session.cinema_hall.rows:
             raise ValidationError({
                 "row": (
@@ -74,6 +74,6 @@ class Ticket(models.Model):
                 )
             })
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         self.full_clean()
         super().save(*args, **kwargs)
