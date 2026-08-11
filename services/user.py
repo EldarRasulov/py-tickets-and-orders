@@ -2,12 +2,12 @@ from db.models import User
 
 
 def create_user(
-    username,
-    password,
-    email=None,
-    first_name=None,
-    last_name=None,
-):
+    username: str,
+    password: str,
+    email: str = None,
+    first_name: str = None,
+    last_name: str = None,
+) -> User:
     user = User.objects.create_user(
         username=username,
         password=password,
@@ -25,18 +25,18 @@ def create_user(
     return user
 
 
-def get_user(user_id):
+def get_user(user_id: int) -> User:
     return User.objects.get(id=user_id)
 
 
 def update_user(
-    user_id,
-    username=None,
-    password=None,
-    email=None,
-    first_name=None,
-    last_name=None,
-):
+    user_id: int,
+    username: str = None,
+    password: str = None,
+    email: str = None,
+    first_name: str = None,
+    last_name: str = None,
+) -> User:
     user = User.objects.get(id=user_id)
 
     if username is not None:

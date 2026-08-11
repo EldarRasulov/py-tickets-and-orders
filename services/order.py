@@ -1,14 +1,19 @@
+from typing import Any
+
 from django.contrib.auth import get_user_model
 from django.db import transaction
 
-from db.models import MovieSession, Order, Ticket
+from db.models import Order, Ticket
 
 
 @transaction.atomic
-def create_order(tickets, username, date=None):
-    User = get_user_model()
-
-    user = User.objects.get(username=username)
+def create_order(
+    tickets: list[dict[str, Any]],
+    username: str,
+    date: str = None,
+) -> Order:
+    user_model = get_user_model()
+    user = user_model.objects.get(username=username)
 
     order = Order.objects.create(user=user)
 
@@ -27,7 +32,7 @@ def create_order(tickets, username, date=None):
     return order
 
 
-def get_orders(username=None):
+def get_orders(username: str = None):
     if username is not None:
         return Order.objects.filter(user__username=username)
 
