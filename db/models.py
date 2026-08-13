@@ -6,7 +6,6 @@ from django.db import models
 class User(AbstractUser):
     pass
 
-
 class Movie(models.Model):
     title = models.CharField(max_length=255, db_index=True)
     # остальные существующие поля Movie оставь как были
